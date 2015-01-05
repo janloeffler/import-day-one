@@ -1,0 +1,14 @@
+	Date:	12. Juli 2013 20:30
+	Location:	Stuttgart, Baden-Württemberg, Deutschland
+	Weather:	23° Sunny
+	Photo:	2013-7-12.jpg
+
+Dies ist mein erster Eintrag bei sonnigem Wetter.
+
+	Date:	24. Juli 2013 09:48
+	Tags:	Freunde
+	Location:	Karlsruhe, Baden-Württemberg, Deutschland
+	Weather:	24° Sunny
+	Photo:	2013-7-24.jpg
+
+Ein schöner Sommertag beginnt!
