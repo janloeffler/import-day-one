@@ -19,7 +19,7 @@ class DayOneItem {
         return ( strcmp( $d1, $d2 ) == 0 );
     }
 
-    public function cmpDate( $date_to_compare, $length ) {
+    public function compareDate( $date_to_compare, $length ) {
         $d1 = substr( $this->date, 0, $length );
         $d2 = substr( $this->convertDate( $date_to_compare ), 0, $length );
         return ( strcmp( $d1, $d2 ) == 0 );
@@ -27,12 +27,12 @@ class DayOneItem {
     
     // "2014-03-08 13:42:00" -> "2014-03-08 13"
     public function matchRoughDate( $date_to_compare ) {
-        return cmpDate( $date_to_compare, 13 );
+        return $this->compareDate( $date_to_compare, 13 );
     }
 
     // "2014-03-08 13:42:00" -> "2014-03-08"
     public function sameDay( $date_to_compare ) {
-        return cmpDate( $date_to_compare, 10 );
+        return $this->compareDate( $date_to_compare, 10 );
     }
     
     public function hasValues() {

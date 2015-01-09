@@ -71,7 +71,6 @@ function import_day_one( $args ) {
         try {
             $item = $items->getItem( $post_date );
             if ( $item ) {
-                
                 if ( $item->isRoughDate ) {
                     echo '[' . $i . '] Correct date for post ' . $post_id . ' (' . $post_date . ' ' . get_the_title() . ') DayOne: ' . $item->toShortString() . "<br /><br />\n";
                     
@@ -173,6 +172,7 @@ function import_day_one( $args ) {
 }
 
 function add_post( $item ) {
+
     try {
         // WordPress date must be in form: '2010-02-23 18:57:33'
         // DayOne comes with: '24. Juli 2013 09:48' or '15 Sep 2013 15:49'
