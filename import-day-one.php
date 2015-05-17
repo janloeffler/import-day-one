@@ -44,6 +44,7 @@ function import_day_one( $args ) {
     $sit   = new DayOneItem();
 
     $simulate          = false;
+    $draft             = false;
     $i                 = 0;
     $item_count        = 0;
     $no_location_count = 0;
@@ -69,6 +70,7 @@ function import_day_one( $args ) {
         $geo_latitude = get_post_meta( $post_id, 'geo_latitude', true );
 
         try {
+        
             $item = $items->getItem( $post_date );
             if ( $item ) {
                 if ( $item->isRoughDate ) {
@@ -153,7 +155,7 @@ function import_day_one( $args ) {
 
         if ( !$item->exists ) {
             echo '[' . $j . '] New DayOne entry: ' . $item->toString() . "<br /><br />\n";
-            if ( !$simulate && add_post( $item ) ) {
+            if ( !$simulate && add_post( $item, $draft ) ) {
                 $new_entries_added++;
             }
             $new_entries++;
@@ -171,20 +173,33 @@ function import_day_one( $args ) {
     wp_reset_postdata();
 }
 
-function add_post( $item ) {
+function add_post( $item, $draft ) {
 
     try {
         // WordPress date must be in form: '2010-02-23 18:57:33'
         // DayOne comes with: '24. Juli 2013 09:48' or '15 Sep 2013 15:49'
         // date (, strtotime('24 July 2013 09:48:00') )
-        $post = array(
-            'post_content' => $item->text,
-            'post_title'   => $item->getDate(),
-            'post_status'  => 'draft',
-            'post_type'    => 'post',
-            'post_date'    => $item->getDate(),
-            'tags_input'   => $item->getTags()
-        );
+        
+        // post_stats: [Published, Draft, Private]
+        if ( $draft ) {
+            $post = array(
+                'post_content' => $item->text,
+                'post_title'   => $item->getDate(),
+                'post_status'  => 'draft',
+                'post_type'    => 'post',
+                'post_date'    => $item->getDate(),
+                'tags_input'   => $item->getTags()
+            );
+        } else {
+            $post = array(
+                          'post_content' => $item->text,
+                          'post_title'   => $item->getDate(),
+                          'post_status'  => 'publish',
+                          'post_type'    => 'post',
+                          'post_date'    => $item->getDate(),
+                          'tags_input'   => $item->getTags()
+                          );
+        }
 
         echo "Add post to WP: " . $item->toString() . "<br /><br />\n";
 
